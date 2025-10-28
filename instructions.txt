@@ -1,0 +1,44 @@
+Hi there,
+
+This is a small attempt to apply themes for waybar with ease.
+
+!!!!!!!!!MAKE A BACKUP OF YOUR EXISTING WAYBAR CONFIG!!!!!
+    (YOU CAN AS WELL SAVE YOUR "config.json and style.css" in the themes folder so u can switch back to it)
+
+--HOW-TO-----
+
+- copy omarchy-theme-waybar script to .local/share/omarchy/bin and make it executable with chmod +x omarchy-theme-waybar
+
+- copy the themes folder to .config/waybar/ - see !!!
+
+- open a terminal and call the omarchy-theme-waybar or make a keybinding like ==> bindd = SUPER, Z, waybar, exec, omarchy-theme-waybar
+
+- select the theme from the list (based of the contents in the waybar/themes folder) - do not use capital letters for future themes.
+
+- the theme you choose should apply. if it does not use omarchy-restart-waybar or if you think you got errors waybar & disown command should tell you what is wrong. Rinse and Repeat!
+
+
+What this script does is it extracts the config.json and style.css from the themes/themename folder into the waybar folder using a script that calls walker for the menu.
+
+
+After appying the theme you should see in the waybar directory the following:
+
+
+-config.json - your theme
+-style.css - your theme
+themes folder
+scripts folder - if any
+
+
+NO WARRANTY, IS DISTRIBUTED AS-IS. NO TECHNICAL SUPPORT !
+
+Enjoy!
+
+By
+ @Michael91
+ @Palccod
+
+xoxo
+
+
+

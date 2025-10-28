@@ -1,0 +1,56 @@
+#!/bin/bash
+
+WAYBAR_DIR="$HOME/.config/waybar"
+THEMES_DIR="$WAYBAR_DIR/themes"
+STYLE_CSS="$WAYBAR_DIR/style.css"
+CONFIG_JSONC="$WAYBAR_DIR/config.jsonc"
+
+# Check if themes directory exists
+if [[ ! -d "$THEMES_DIR" ]]; then
+  notify-send "Error" "Waybar themes directory not found: $THEMES_DIR"
+  exit 1
+fi
+
+# List available waybar themes
+themes=$(find "$THEMES_DIR" -mindepth 1 -maxdepth 1 \( -type d -o -type l \) | sort | while read -r path; do
+  theme_name="$(basename "$path")"
+  echo "$theme_name"
+done)
+
+if [[ -z "$themes" ]]; then
+  notify-send "Error" "No waybar themes found"
+  exit 1
+fi
+
+# Select theme using walker
+selected=$(echo "$themes" | walker --dmenu --theme menus --width 295 --minheight 1 --maxheight 600 -p "Select" 2>/dev/null | tail -n 1)
+
+if [[ "$selected" == "CNCLD" || -z "$selected" ]]; then
+  exit 0
+fi
+
+selected=$(echo "$selected" | tr -d '\n' | xargs)
+
+theme_name=$selected
+theme_path="$THEMES_DIR/$theme_name"
+
+# Check if theme directory exists
+if [[ ! -d "$theme_path" ]]; then
+  notify-send "Error" "Waybar theme '$theme_name' does not exist"
+  exit 1
+fi
+
+# Check if theme files exist
+if [[ ! -f "$theme_path/style.css" || ! -f "$theme_path/config.jsonc" ]]; then
+  notify-send "Error" "Theme '$theme_name' is missing style.css or config.jsonc file"
+  exit 1
+fi
+
+# Apply the theme
+cat "$theme_path/style.css" >"$STYLE_CSS"
+cat "$theme_path/config.jsonc" >"$CONFIG_JSONC"
+
+# Restart waybar
+omarchy-restart-waybar
+
+notify-send "Waybar Theme" "Switched to $selected"

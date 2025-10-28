@@ -1,0 +1,64 @@
+@import "../../.config/omarchy/current/theme/waybar.css";
+
+* {
+    background-color: transparent;
+    color: @foreground;
+
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    font-family: CaskaydiaMono Nerd Font;
+    font-size: 16px;
+}
+
+window#waybar {
+    background-color: alpha(@background, 0.9);
+}
+
+.modules-left {
+    margin: 8px 0px 8px 10px;
+}
+
+.modules-right {
+    margin: 8px 10px 8px 0px;
+}
+
+#workspaces button {
+    all: initial;
+    padding: 0 6px;
+    margin: 0 1.5px;
+    min-width: 9px;
+}
+
+#workspaces button.empty {
+    opacity: 0.5;
+}
+
+#cpu,
+#bluetooth,
+#pulseaudio,
+#network,
+#clock,
+#battery,
+#custom-exit,
+#custom-openwebui,
+#custom-brightness,
+#custom-hypridle,
+#custom-filemanager {
+    min-width: 12px;
+    margin: 0 8px;
+    font-size: 16px;
+}
+
+#custom-hypridle.notactive {
+    color: rgb(224, 137, 137);
+}
+tooltip {
+    background-color: alpha(@background, 0.9);
+    padding: 20px;
+    margin: 0px;
+}
+
+tooltip label {
+    color: @foreground;
+}
